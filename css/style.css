@@ -84,7 +84,7 @@ form button:hover {
 }
 
 /* esta es la parte para eliminar una lista */
-.delete {
+.deleteBtn {
   background: transparent;
   border: none;
   cursor: pointer;

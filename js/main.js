@@ -11,7 +11,7 @@ function createToDoItem(textoItem) {
         item.classList.add('itm-to-do')
 
     // cremoas el nodo hijo y le agregamos el type y el checkbox
-    const checkbox = document.getElementById('input')
+    const checkbox = document.createElement('input')
         checkbox.type = 'checkbox'
 
     // Creamos el nodo hijo parrafo constante 'p' a este parrafo le adsino el valor del argumento de la función es decir lo que escribe el usuario en le campo
@@ -30,3 +30,19 @@ function createToDoItem(textoItem) {
 
     return item // Utilizamos el return para dar respueta, ya que lo usaremos mas adelante
 }
+
+// Detectamos el click con un evento escucha sobre el boton agregar "+" 
+// Para apartir de este evento se agrege la tarea dentro del contenedor 
+
+addBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    const textoItem = input.value.trim();
+    if (textoItem === "") {
+        alert("No se puede crear una tarea vacía");
+    } else {
+        const newItem = createToDoItem(textoItem);
+        todoList.appendChild(newItem);
+        input.value = "";
+    }
+});
