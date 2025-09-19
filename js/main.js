@@ -1,48 +1,87 @@
-// creamos las constantes globales
-const input = document.getElementById("todoinput")
-const addBtn = document.getElementById("add-btn")
-const todoList = document.getElementById("cont-to-do-list")
-const compleList = document.getElementById("cont-to-do-chet")
-// creamos la funcion que nos permite crear una nueva tarea apartir del formulario
-// Toda etiqueta que vamos a crear es apartir de la maqueta html pre existente
+// Constantes globales
+const input = document.getElementById("todoinput");
+const addBtn = document.getElementById("add-btn");
+const toDoList = document.getElementById("cont-to-do-list");
+const completedList = document.getElementById("cont-chet");
+
+// Función para crear una nueva tarea
 function createToDoItem(textoItem) {
-    // Creamos el nodo o elemento padre
-    const item = document.createElement('div')
-        item.classList.add('itm-to-do')
+    const item = document.createElement('div');
+    item.classList.add('itm-to-do');
 
-    // cremoas el nodo hijo y le agregamos el type y el checkbox
-    const checkbox = document.createElement('input')
-        checkbox.type = 'checkbox'
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
 
-    // Creamos el nodo hijo parrafo constante 'p' a este parrafo le adsino el valor del argumento de la función es decir lo que escribe el usuario en le campo
-    const p = document.createElement('p')
-        p.textContent = textoItem
-    
-    // Creamos el ultimo nodo hijo, el boton de eliminar
-    const deleteBtn = document.createElement('button')
-        deleteBtn.innerHTML = '<i class="bi bi-x"></i>'
-    
-    //Ensablamos en la funcion oadre sus nodos hijos es decir la estructura de la tarea 
+    const p = document.createElement('p');
+    p.textContent = textoItem;
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerHTML = '<i class="bi bi-x"></i>';
 
     item.appendChild(checkbox);
     item.appendChild(p);
     item.appendChild(deleteBtn);
 
-    return item // Utilizamos el return para dar respueta, ya que lo usaremos mas adelante
+    return item;
 }
 
-// Detectamos el click con un evento escucha sobre el boton agregar "+" 
-// Para apartir de este evento se agrege la tarea dentro del contenedor 
+// Agregar eventos a cada tarea
+function iventsToItem(item) {
+    const checkbox = item.querySelector("input");
+    const deleteBtn = item.querySelector("button");
 
-addBtn.addEventListener('click', (event) => {
-    event.preventDefault();
+    // Mover entre listas
+    checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+            completedList.appendChild(item);
+        } else {
+            toDoList.appendChild(item);
+        }
+    });
 
+    // Eliminar tarea
+    deleteBtn.addEventListener("click", () => {
+        item.remove();
+    });
+}
+
+// Función para añadir nueva tarea
+function addTask() {
     const textoItem = input.value.trim();
     if (textoItem === "") {
         alert("No se puede crear una tarea vacía");
     } else {
         const newItem = createToDoItem(textoItem);
-        todoList.appendChild(newItem);
+        toDoList.appendChild(newItem);
+        iventsToItem(newItem);
         input.value = "";
+    }
+}
+
+// Click en el botón 
+addBtn.addEventListener("click", (e) => {
+    e.preventDefault(); 
+    addTask();
+});
+
+// Enter en el input
+input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        addTask();
+    }
+});
+
+// Botón de modo noche
+const changeStyleBtn = document.getElementById("change-style");
+
+changeStyleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+
+    // Cambiar el texto del botón según el modo
+    if (document.body.classList.contains("dark-mode")) {
+        changeStyleBtn.innerHTML = '<i class="bi bi-sun-fill"></i>';
+    } else {
+        changeStyleBtn.innerHTML = '<i class="bi bi-moon-stars-fill"></i>';
     }
 });

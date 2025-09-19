@@ -9,9 +9,10 @@
   font-family: 'Roboto', sans-serif;
 }
 
+/* 🌞 MODO DÍA (por defecto) */
 body {
-  background: linear-gradient(135deg, #171731, #12123b);
-  color: #f5f5f5;
+  background: linear-gradient(135deg, #e0e0e0, #b3b3b3);
+  color: #222;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,12 +21,12 @@ body {
 }
 
 #global_content {
-  background: #151528;
+  background: #ffffff;
   padding: 25px;
   border-radius: 15px;
   width: 100%;
   max-width: 500px;
-  box-shadow: 0 8px 20px rgba(112, 106, 106, 0.5);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 h1 {
@@ -33,14 +34,22 @@ h1 {
   margin-bottom: 15px;
   font-weight: 700;
   letter-spacing: 1px;
-  color: #ffffff;
+  color: #222;
 }
 
 h2 {
   margin: 20px 0 10px;
   font-weight: 500;
   font-size: 1.2rem;
-  color: #dbdbdb;
+  color: #333;
+}
+
+/* Línea divisoria */
+hr {
+  border: none;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.2);
+  margin: 10px 0 20px;
 }
 
 /* Inputs y botones */
@@ -53,15 +62,15 @@ form input {
   flex: 1;
   padding: 10px;
   border-radius: 8px;
-  border: none;
+  border: 1px solid #ccc;
   outline: none;
-  background: #1e1e2f;
-  color: #fff;
+  background: #f9f9f9;
+  color: #222;
   font-size: 1rem;
 }
 
 form input::placeholder {
-  color: #9393ad;
+  color: #777;
 }
 
 form button {
@@ -83,12 +92,53 @@ form button:hover {
   background: #5a3dff;
 }
 
-/* esta es la parte para eliminar una lista */
-.deleteBtn {
+/* Contenedores de listas */
+#cont-to-do-list,
+#cont-chet {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Estilos para cada ítem */
+.itm-to-do {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f1f1f1;
+  padding: 10px 15px;
+  border-radius: 10px;
+  transition: 0.3s ease;
+}
+
+.itm-to-do:hover {
+  transform: translateX(5px);
+  background: #e1e1e1;
+}
+
+/* Checkbox */
+.itm-to-do input[type="checkbox"] {
+  accent-color: #5a3dff;
+  transform: scale(1.3);
+  cursor: pointer;
+}
+
+/* Texto de la tarea */
+.itm-to-do p {
+  flex: 1;
+  margin: 0;
+  font-size: 1rem;
+  word-break: break-word;
+  color: #222;
+}
+
+/* Botón de eliminar */
+.itm-to-do button {
   background: transparent;
   border: none;
   cursor: pointer;
-  display: inline-flex; 
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 }
@@ -100,53 +150,79 @@ form button:hover {
   border-radius: 50%;
   background: red;
   color: #fff;
-  width: 28px;   /* tamaño fijo circular */
+  width: 28px;
   height: 28px;
   font-size: 1.1rem;
-  transition: all 0.3s ease; /* animación suave */
+  transition: all 0.3s ease;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .bi-x:hover {
   background: #fff;
   color: rgb(163, 4, 4);
-  transform: scale(1.1); /* efecto de crecer un poco */
+  transform: scale(1.1);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
-/* Listas de tareas */
-#cont-to-do-list,
-#cont-chet {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* 🌙 MODO NOCHE */
+body.dark-mode {
+  background: linear-gradient(135deg, #242463, #0e0e3f);
+  color: #f5f5f5;
 }
 
-.itm-to-do {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #1e1e2f;
-  padding: 10px 15px;
-  border-radius: 10px;
+body.dark-mode #global_content {
+  background: #151528;
+  color: #f5f5f5;
 }
 
-.itm-to-do:hover {
-  transform: translateX(5px);
-  background: #22223a;
-}
-
-.itm-to-do input[type="checkbox"] {
-  accent-color: #000000; /* color del check */
-  transform: scale(1.3);
-  cursor: pointer;
+body.dark-mode h1,
+body.dark-mode h2 {
   color: #fff;
 }
 
-.itm-to-do p {
-  flex: 1;
-  margin: 0;
-  font-size: 1rem;
-  word-break: break-word;
+body.dark-mode form input {
+  background: #1e1e2f;
+  border: none;
+  color: #fff;
+}
+
+body.dark-mode form input::placeholder {
+  color: #9393ad;
+}
+
+body.dark-mode .itm-to-do {
+  background: #1e1e2f;
+}
+
+body.dark-mode .itm-to-do:hover {
+  background: #22223a;
+}
+
+body.dark-mode .itm-to-do p {
+  color: #f5f5f5;
+}
+
+/* Botón para cambiar modo */
+#change-style {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  background: #000;
+  font-weight: 800;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 20px;
+  border: none;
+  transition: background 0.3s, transform 0.2s;
+}
+
+#change-style:hover {
+  background: #444;
+  transform: scale(1.05);
+}
+
+body.dark-mode #change-style {
+  background: #fff;
+  color: #000;
 }
